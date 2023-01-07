@@ -6,32 +6,30 @@ import java.util.Scanner;
 
 
 public class Main {
+    public static final Scanner scanner = new Scanner(System.in);
+    static int key;
+    static int mode;
     public static final String CHOISE_TO_ENCODING = "Enter: 1 - coding | 2 - decoding | 3 - bruteForce -> ";
-    public static final String KEY_FOR_ENCODING = "Enter key for Encoding";
+    public static final String KEY_TO_ENCODING = "Enter key for Encoding ";
 
     public static void main(String[] args) {
         System.out.print(CHOISE_TO_ENCODING);
-        optionEncryption();
+        enterMode();
+        System.out.print(KEY_TO_ENCODING);
+        enterKey();
+        optionEncryption(key, mode);
     }
 
-    public static String optionEncryption() {
-        try (Scanner scanner = new Scanner(System.in)) {
-            while (true) {
-                switch (scanner.nextLine()) {
-                    case "1" -> {
-                        System.out.print(KEY_FOR_ENCODING + " ");
-                        coding(scanner.nextInt());
-                    }
-                    case "2" -> {
-                        System.out.print(KEY_FOR_ENCODING + " ");
-                        return decoding(scanner.nextInt());
-                    }
-                    case "3" -> {
-                        return bruteForce();
-                    }
-                }
-                System.out.println("-".repeat(120));
-                System.out.print("Learn to hit the keys \uD83D\uDCA9 \n" + CHOISE_TO_ENCODING);
+    public static void optionEncryption(int key, int mode) {
+        switch (mode) {
+            case 1 -> {
+                coding(key);
+            }
+            case 2 -> {
+                decoding(key);
+            }
+            case 3 -> {
+                bruteForce();
             }
         }
     }
@@ -42,7 +40,7 @@ public class Main {
         int index;
         for (int i = 0; i < message.length; i++) {
             for (int j = 0; j < letters.length; j++) {
-                if (message[i] == letters[j]){
+                if (message[i] == letters[j]) {
                     index = (j + key) % (letters.length - 1);
                     message[i] = letters[index];
                     break;
@@ -53,22 +51,22 @@ public class Main {
     }
 
 
-    public static String decoding(int key) {
+    public static void decoding(int key) {
         char[] chars = fileToCharArray();
         System.out.println(Arrays.toString(chars));
-        return "Data successfully encrypted1";
+        System.out.println("Data successfully encrypted1");
     }
 
-    public static String bruteForce() {
+    public static void bruteForce() { //---
         char[] chars = fileToCharArray();
         System.out.println(Arrays.toString(chars));
-        return "Data successfully encrypted2";
+        System.out.println("Data successfully encrypted2");
     }
 
     public static char[] fileToCharArray() {
         System.out.print("Enter way to file: ");
         try (Scanner scanner = new Scanner(System.in);
-             BufferedReader buffer = new BufferedReader (new FileReader(scanner.nextLine()))) {
+             BufferedReader buffer = new BufferedReader(new FileReader(scanner.nextLine()))) {
             StringBuilder str = new StringBuilder();
             while (buffer.ready()) {
                 str.append((char) buffer.read());
@@ -81,9 +79,9 @@ public class Main {
         }
     }
 
-    public static void charArrayToFile(char[] message) {
-        try (Scanner scanner = new Scanner(System.in);
-             BufferedWriter buffer = new BufferedWriter (new FileWriter(scanner.nextLine()))) {
+
+    public static void charArrayToFile(char[] message) {  //???
+        try (BufferedWriter buffer = new BufferedWriter(new FileWriter(scanner.nextLine()))) {
             buffer.write(message);
             buffer.flush();
         } catch (FileNotFoundException e) {
@@ -98,4 +96,28 @@ public class Main {
         return letters;
     }
 
+    public static void enterKey() {
+        while (true) {
+            if (scanner.hasNextInt()) {
+                key = scanner.nextInt();
+                break;
+            } else {
+                System.out.println("-".repeat(120));
+                System.out.print("Learn to hit the keys \uD83D\uDCA9 \n" + KEY_TO_ENCODING);
+            }
+        }
+    }
+
+    public static void enterMode() {
+        while (true) {
+            String s = scanner.nextLine();
+            if (s.equals("1") || s.equals("2") || s.equals("3")) {
+                mode = Integer.parseInt(s);
+                break;
+            } else {
+                System.out.println("-".repeat(120));
+                System.out.print("Learn to hit the keys \uD83D\uDCA9 \n" + CHOISE_TO_ENCODING);
+            }
+        }
+    }
 }
