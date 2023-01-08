@@ -18,7 +18,7 @@ public class Main {
         optionEncryption(getKey(), getMode(), getInputFile(), getOutputFile());
     }
 
-    public static void optionEncryption(int key, int mode, String inputFile, String outputFile) {
+    public static String optionEncryption(int key, int mode, String inputFile, String outputFile) {
         switch (mode) {
             case 1 -> {
                 coding(key, inputFile, outputFile);
@@ -30,5 +30,6 @@ public class Main {
                 bruteForce(inputFile, outputFile);
             }
         }
+        return "Program successfull";
     }
 }

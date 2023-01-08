@@ -43,17 +43,29 @@ public class Сryptanalyzer {
                 }
             }
         }
-        charArrayToFile(message);
+        charArrayToFile(message, outputFile);
+    }//Good
+
+
+    public static void decoding(int key, String inputFile, String outputFile) {//Bad
+        char[] message = fileToCharArray(inputFile);
+        char[] letters = alfpabet();
+        int index;
+        int plusNum;
+        for (int i = 0; i < message.length; i++) {
+            for (int j = 0; j < letters.length; j++) {
+                if (message[i] == letters[j]) {
+                    plusNum = j - key < 0 ? (j - key) * -1 : j - key;
+                    index = plusNum % (letters.length - 1);
+                    message[i] = letters[index];
+                    break;
+                }
+            }
+        }
+        charArrayToFile(message, outputFile);
     }
 
-
-    public static void decoding(int key, String inputFile, String outputFile) {
-        char[] chars = fileToCharArray(inputFile);
-        System.out.println(Arrays.toString(chars));
-        System.out.println("Data successfully encrypted1");
-    }
-
-    public static void bruteForce(String inputFile, String outputFile) { //---
+    public static void bruteForce(String inputFile, String outputFile) { //Bad
         char[] chars = fileToCharArray(inputFile);
         System.out.println(Arrays.toString(chars));
         System.out.println("Data successfully encrypted2");
@@ -71,11 +83,11 @@ public class Сryptanalyzer {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-    }
+    }//Good
 
 
-    public static void charArrayToFile(char[] message) {  //???
-        try (BufferedWriter buffer = new BufferedWriter(new FileWriter(scanner.nextLine()))) {
+    public static void charArrayToFile(char[] message, String outputFile) {  //???
+        try (BufferedWriter buffer = new BufferedWriter(new FileWriter(outputFile))) {
             buffer.write(message);
             buffer.flush();
         } catch (FileNotFoundException e) {
@@ -83,24 +95,21 @@ public class Сryptanalyzer {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    public static char[] alfpabet() {
-        char[] letters = {'а', 'б', 'в', 'г', 'д', 'е', 'ё', 'ж', 'з', 'и', 'й', 'к', 'л', 'м', 'н', 'о', 'п', 'р', 'с', 'т', 'у', 'ф', 'х', 'ц', 'ч', 'ш', 'щ', 'ъ', 'ы', 'ь', 'э', 'ю', 'я'};
-        return letters;
-    }
+    }//Good
 
     public static void enterKey() {
         while (true) {
             if (scanner.hasNextInt()) {
                 key = scanner.nextInt();
+                scanner.nextLine();
                 break;
-            } else {
+            }else if(scanner.hasNextLine()){
+                scanner.nextLine();
                 System.out.println("-".repeat(120));
                 System.out.print("Learn to hit the keys \uD83D\uDCA9 \n" + KEY_TO_ENCODING);
             }
         }
-    }
+    }//Good
 
     public static void enterMode() {
         while (true) {
@@ -113,21 +122,19 @@ public class Сryptanalyzer {
                 System.out.print("Learn to hit the keys \uD83D\uDCA9 \n" + CHOISE_TO_ENCODING);
             }
         }
-    }
+    }//Good
 
     public static void enterInputFile() {
-        if(scanner.hasNextLine()) {
             inputFile = scanner.nextLine();
-            inputFile.replace("\\", "\\\\");
-        }
-    }
+    }//Good
 
     public static void enterOutFile() {
-        if(scanner.hasNextLine()) {
             outputFile = scanner.nextLine();
-            outputFile.replace("\\", "\\\\");
-        }
-    }
+    }//Good
 
+    public static char[] alfpabet() {
+        char[] letters = {'а', 'б', 'в', 'г', 'д', 'е', 'ё', 'ж', 'з', 'и', 'й', 'к', 'л', 'м', 'н', 'о', 'п', 'р', 'с', 'т', 'у', 'ф', 'х', 'ц', 'ч', 'ш', 'щ', 'ъ', 'ы', 'ь', 'э', 'ю', 'я'};
+        return letters;
+    }
 }
 
