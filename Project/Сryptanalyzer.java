@@ -116,13 +116,17 @@ public class Сryptanalyzer {
     }
 
     public static void enterInputFile() {
-        inputFile = scanner.nextLine();
-        inputFile.replace("\\", "\\\\");
+        if(scanner.hasNextLine()) {
+            inputFile = scanner.nextLine();
+            inputFile.replace("\\", "\\\\");
+        }
     }
 
-    public static void enterOutoutFile() {
-        outputFile = scanner.nextLine();
-        outputFile.replace("\\", "\\\\");
+    public static void enterOutFile() {
+        if(scanner.hasNextLine()) {
+            outputFile = scanner.nextLine();
+            outputFile.replace("\\", "\\\\");
+        }
     }
 
 }

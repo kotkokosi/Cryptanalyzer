@@ -1,9 +1,5 @@
 package Project;
 
-import java.io.*;
-import java.util.Arrays;
-import java.util.Scanner;
-
 import static Project.Сryptanalyzer.*;
 
 
@@ -15,10 +11,10 @@ public class Main {
         enterMode();
         System.out.print(KEY_TO_ENCODING);
         enterKey();
-        System.out.println(FILE_TO_READ);
+        System.out.print(FILE_TO_READ);
         enterInputFile();
-        System.out.println(FILE_TO_RECORD);
-        enterOutoutFile();
+        System.out.print(FILE_TO_RECORD);
+        enterOutFile();
         optionEncryption(getKey(), getMode(), getInputFile(), getOutputFile());
     }
 
