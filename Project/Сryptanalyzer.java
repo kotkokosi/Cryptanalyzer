@@ -8,8 +8,6 @@ public class Сryptanalyzer {
     public static final Scanner scanner = new Scanner(System.in);
     public static final String CHOISE_TO_ENCODING = "Enter: 1 - coding | 2 - decoding | 3 - bruteForce -> ";
     public static final String KEY_TO_ENCODING = "Enter key for Encoding ";
-    public static final String FILE_TO_READ = "Enter path to file from which to read: ";
-    public static final String FILE_TO_READ = "Enter path to file for record: ";
 
     public static String getInputFile() {
         return inputFile;
@@ -32,8 +30,8 @@ public class Сryptanalyzer {
     private static int key;
     private static int mode;
 
-    public static void coding(int key) {
-        char[] message = fileToCharArray();
+    public static void coding(int key, String inputFile, String outputFile) {
+        char[] message = fileToCharArray(inputFile);
         char[] letters = alfpabet();
         int index;
         for (int i = 0; i < message.length; i++) {
@@ -49,14 +47,14 @@ public class Сryptanalyzer {
     }
 
 
-    public static void decoding(int key) {
-        char[] chars = fileToCharArray();
+    public static void decoding(int key, String inputFile, String outputFile) {
+        char[] chars = fileToCharArray(inputFile);
         System.out.println(Arrays.toString(chars));
         System.out.println("Data successfully encrypted1");
     }
 
-    public static void bruteForce() { //---
-        char[] chars = fileToCharArray();
+    public static void bruteForce(String inputFile, String outputFile) { //---
+        char[] chars = fileToCharArray(inputFile);
         System.out.println(Arrays.toString(chars));
         System.out.println("Data successfully encrypted2");
     }
